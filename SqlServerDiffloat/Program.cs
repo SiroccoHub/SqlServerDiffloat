@@ -19,8 +19,10 @@ namespace SqlServerDiffloat
                 logger.Error(@"Install SQL Server Data Tools (SSDT) from https://docs.microsoft.com/ja-jp/sql/ssdt/download-sql-server-data-tools-ssdt?view=sql-server-2017 .");
                 return;
             }
-            var actionOption = new ActionOption(args);
 
+            var options = OptionParser.ConvertOptionsToDictionary(args);
+
+            var actionOption = new ActionOption(options);
             if (actionOption.Action == null)
             {
                 logger.Error(@"Argument 'Action' is required and value of Extract or DiffScript");

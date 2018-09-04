@@ -9,9 +9,8 @@ namespace SqlServerDiffloat.Domains
     {
         public readonly Actions? Action = null;
 
-        public ActionOption(string[] args)
+        public ActionOption(Dictionary<string, string> options)
         {
-            var options = OptionParser.ConvertOptionsToDictionary(args);
             if (!options.ContainsKey("/action"))
             {
                 Action = null;
