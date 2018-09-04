@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SqlServerDiffloat.Extentions
@@ -7,13 +8,19 @@ namespace SqlServerDiffloat.Extentions
     {
         private static (string key, string value) SplitOption(string option)
         {
-            var splits = option.Split(":");
-            if (!splits.Skip(1).Any())
+            var colonIndex = option.IndexOf(":", StringComparison.Ordinal);
+            if (colonIndex == -1)
             {
-                return (option, null);
+                return (option.Trim(new char[] { '"' }).Trim(), null);
             }
 
-            return (splits.First().ToLower(), string.Join(":", splits.Skip(1)).Trim(new char[] { '"' }).Trim());
+            var key = option.Substring(0, colonIndex);
+            if (key[0] != '/')
+            {
+                return (option.Trim(new char[] { '"' }).Trim(), null);
+            }
+
+            return (key, option.Substring(colonIndex + 1).Trim(new char[] { '"' }).Trim());
         }
 
         public static Dictionary<string, string> ConvertOptionsToDictionary(string[] options)

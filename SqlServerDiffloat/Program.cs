@@ -21,7 +21,6 @@ namespace SqlServerDiffloat
             }
 
             var options = OptionParser.ConvertOptionsToDictionary(args);
-
             var actionOption = new ActionOption(options);
             if (actionOption.Action == null)
             {
