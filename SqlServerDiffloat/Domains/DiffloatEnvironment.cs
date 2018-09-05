@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 
 namespace SqlServerDiffloat.Domains
 {
@@ -7,12 +7,12 @@ namespace SqlServerDiffloat.Domains
         private static readonly string BinaryFileName = @"sqlpackage.exe";
 
         private static readonly string SsdtVisualStudioPath =
-            Path.Join(
+            Path.Combine(
                 @"C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\140\",
                 BinaryFileName);
 
         private static readonly string SsdtsqlServerPath =
-            Path.Join(
+            Path.Combine(
             @"C:\Program Files (x86)\Microsoft SQL Server\140\DAC\bin\",
             BinaryFileName);
 
