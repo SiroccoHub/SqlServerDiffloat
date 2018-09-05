@@ -14,7 +14,7 @@ namespace SqlServerDiffloat.Extentions
                 return (option.Trim(new char[] { '"' }).Trim(), null);
             }
 
-            var key = option.Substring(0, colonIndex);
+            var key = option.Substring(0, colonIndex).ToLower();
             if (key[0] != '/')
             {
                 return (option.Trim(new char[] { '"' }).Trim(), null);

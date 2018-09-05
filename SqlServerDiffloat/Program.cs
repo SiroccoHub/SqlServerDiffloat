@@ -1,8 +1,9 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Threading.Tasks;
 using NLog;
 using SqlServerDiffloat.Domains;
+using SqlServerDiffloat.Entities;
 using SqlServerDiffloat.Extentions;
 
 namespace SqlServerDiffloat
@@ -28,6 +29,16 @@ namespace SqlServerDiffloat
                 return;
             }
 
+            switch (actionOption.Action.Value)
+            {
+                case Actions.Extract:
+                    await ExtractAction.RunAsync(options, sqlPackagePath, logger);
+                    break;
+                case Actions.DiffScript:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }
