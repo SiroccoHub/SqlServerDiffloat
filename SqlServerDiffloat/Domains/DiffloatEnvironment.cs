@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 
 namespace SqlServerDiffloat.Domains
 {
@@ -17,9 +17,8 @@ namespace SqlServerDiffloat.Domains
             BinaryFileName);
 
 
-        public static string GetSQLServerDataToolsPath()
+        public static string GetSqlPackagePath()
         {
-
             if (File.Exists(SsdtVisualStudioPath))
             {
                 return SsdtVisualStudioPath;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using NLog;
@@ -12,9 +12,9 @@ namespace SqlServerDiffloat
         static async Task Main(string[] args)
         {
             var logger = LogManager.GetCurrentClassLogger();
-            var path = DiffloatEnvironment.GetSQLServerDataToolsPath();
+            var sqlPackagePath = DiffloatEnvironment.GetSqlPackagePath();
 
-            if (string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(sqlPackagePath))
             {
                 logger.Error(@"Install SQL Server Data Tools (SSDT) from https://docs.microsoft.com/ja-jp/sql/ssdt/download-sql-server-data-tools-ssdt?view=sql-server-2017 .");
                 return;
