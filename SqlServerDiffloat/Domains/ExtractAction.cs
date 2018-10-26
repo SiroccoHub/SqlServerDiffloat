@@ -14,30 +14,30 @@ namespace SqlServerDiffloat.Domains
         private static string SourceConnectionStringParamName =>
             SourceConnectionStringParamDisplayName.ToLower();
 
+
         private static string TargetFileParamName =>
             TargetFileParamDisplayName.ToLower();
 
-        public static async Task RunAsync(Dictionary<string, string> options, string sqlPackagePath,  Logger logger)
+        public static async Task RunAsync(Dictionary<string, string> options, string sqlPackagePath, Logger logger)
         {
-            if (!options.ContainsKey(SourceConnectionStringParamName) || string.IsNullOrEmpty(options[SourceConnectionStringParamName]))
+            if (!CheckRequiredParamters(options, new[]
             {
-                logger.Error($@"Operation Extract requires ""{SourceConnectionStringParamDisplayName}"" parameter.");
+                SourceConnectionStringParamDisplayName,
+                TargetFileParamDisplayName
+            }, logger))
                 return;
-            }
-
-            if (!options.ContainsKey(TargetFileParamName) || string.IsNullOrEmpty(options[TargetFileParamName]))
-            {
-                logger.Error($@"Operation Extract requires ""{TargetFileParamDisplayName}"" parameter. ");
-                return;
-            }
 
             using (var process = new Process()
             {
                 StartInfo = new ProcessStartInfo()
                 {
                     FileName = sqlPackagePath,
-                    Arguments =
-                        $"/Action:Extract /SourceConnectionString:{options[SourceConnectionStringParamName]} /TargetFile:{options[TargetFileParamName]}",
+                    Arguments = string.Join(' ', new[]
+                    {
+                        $"/Action:Extract",
+                        $"/SourceConnectionString:{options[SourceConnectionStringParamName]}",
+                        $"/TargetFile:{options[TargetFileParamName]}"
+                    }),
                     CreateNoWindow = true,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
@@ -48,6 +48,20 @@ namespace SqlServerDiffloat.Domains
             {
                 await process.RunAsync(logger);
             }
+        }
+
+        private static bool CheckRequiredParamters(Dictionary<string, string> options, IEnumerable<string> requiredParamDisplayNames, Logger logger)
+        {
+            var result = true;
+            foreach (var paramDisplayName in requiredParamDisplayNames)
+            {
+                if (options.ContainsKey(paramDisplayName.ToLower()) && !string.IsNullOrEmpty(options[paramDisplayName.ToLower()]))
+                    continue;
+
+                logger.Error($@"Operation Extract requires ""{paramDisplayName}"" parameter.");
+                result = false;
+            }
+            return result;
         }
     }
 }
