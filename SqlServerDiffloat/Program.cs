@@ -17,7 +17,7 @@ namespace SqlServerDiffloat
 
             if (string.IsNullOrEmpty(sqlPackagePath))
             {
-                logger.Error(@"Install SQL Server Data Tools (SSDT) from https://docs.microsoft.com/ja-jp/sql/ssdt/download-sql-server-data-tools-ssdt?view=sql-server-2017 .");
+                logger.Error(@"Install SQL Server Data Tools (SSDT) from https://docs.microsoft.com/ja-jp/sql/ssdt/download-sql-server-data-tools-ssdt .");
                 return;
             }
 
