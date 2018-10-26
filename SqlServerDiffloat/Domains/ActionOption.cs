@@ -5,26 +5,20 @@ using SqlServerDiffloat.Extentions;
 
 namespace SqlServerDiffloat.Domains
 {
-    public class ActionOption
+    public static class ActionOption
     {
-        public readonly Actions? Action = null;
+        public static readonly string ActionParamDisplayName = "/Action";
+        private static string ActionParamName => ActionParamDisplayName.ToLower();
 
-        public ActionOption(Dictionary<string, string> options)
+        public static Actions? Analyze(Dictionary<string, string> options)
         {
-            if (!options.ContainsKey("/action"))
-            {
-                Action = null;
-                return;
-            }
+            if (!options.ContainsKey(ActionParamName))
+                return null;
 
-            if (!Enum.TryParse(typeof(Actions), options["/action"], true, out var inputAction))
-            {
-                return;
-            }
+            if (!Enum.TryParse(typeof(Actions), options[ActionParamName], true, out var inputAction))
+                return null;
 
-            Action = inputAction as Actions?;
+            return  inputAction as Actions?;
         }
-
-
     }
 }

@@ -10,15 +10,11 @@ namespace SqlServerDiffloat.Extentions
         {
             var colonIndex = option.IndexOf(":", StringComparison.Ordinal);
             if (colonIndex == -1)
-            {
                 return (option.Trim(new char[] { '"' }).Trim(), null);
-            }
 
             var key = option.Substring(0, colonIndex).ToLower();
             if (key[0] != '/')
-            {
                 return (option.Trim(new char[] { '"' }).Trim(), null);
-            }
 
             return (key, option.Substring(colonIndex + 1).Trim(new char[] { '"' }).Trim());
         }

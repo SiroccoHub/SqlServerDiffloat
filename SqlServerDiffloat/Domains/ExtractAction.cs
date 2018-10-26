@@ -8,20 +8,26 @@ namespace SqlServerDiffloat.Domains
 {
     public static class ExtractAction
     {
-        private static readonly string SourceConnectionStringParamName = "/SourceConnectionString".ToLower();
-        private static readonly string TargetFileParamName = "/TargetFile".ToLower();
+        public static readonly string SourceConnectionStringParamDisplayName = "/SourceConnectionString";
+        public static readonly string TargetFileParamDisplayName = "/TargetFile";
+
+        private static string SourceConnectionStringParamName =>
+            SourceConnectionStringParamDisplayName.ToLower();
+
+        private static string TargetFileParamName =>
+            TargetFileParamDisplayName.ToLower();
 
         public static async Task RunAsync(Dictionary<string, string> options, string sqlPackagePath,  Logger logger)
         {
             if (!options.ContainsKey(SourceConnectionStringParamName) || string.IsNullOrEmpty(options[SourceConnectionStringParamName]))
             {
-                logger.Error(@"Operation Extract requires ""/SourceConnectionString"" parameter.");
+                logger.Error($@"Operation Extract requires ""{SourceConnectionStringParamDisplayName}"" parameter.");
                 return;
             }
 
             if (!options.ContainsKey(TargetFileParamName) || string.IsNullOrEmpty(options[TargetFileParamName]))
             {
-                logger.Error(@"Operation Extract requires ""/TargetFile"" parameter. ");
+                logger.Error($@"Operation Extract requires ""{TargetFileParamDisplayName}"" parameter. ");
                 return;
             }
 
