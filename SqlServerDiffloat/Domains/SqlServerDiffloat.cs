@@ -34,6 +34,7 @@ namespace SqlServerDiffloat.Domains
                     await ExtractAction.RunAsync(options, sqlPackagePath, logger);
                     break;
                 case Actions.DiffScript:
+                    await DiffScriptAction.RunAsync(options, sqlPackagePath, logger);
                     break;
                 default:
                     logger.Error(@"This Action is not implemented.");
